@@ -6,7 +6,7 @@ use Carp qw/croak/;
 
 require Exporter;
 use vars     qw/ $VERSION @ISA @EXPORT_OK /;
-$VERSION   = '1.00';
+$VERSION   = '1.01';
 @ISA       = qw/ Exporter/;
 @EXPORT_OK = qw/ wrap /;
 
@@ -40,18 +40,9 @@ $VERSION   = '1.00';
 				$target = "${package}::$target";
 			}
 		}
-		{
-			no strict;
-			if (my $error = _bad_target( $target, \%wrapper )) {
-				croak $error;
-			} elsif ( ! defined &{$target} ) {
-				# we get strange warnings here about argument not numeric
-				# if we try to use mathmatical operations on elements of 
-				# @_
-				local $^W;
-				*{$target} = &{$sub};
-			}
-		}	
+		if (my $error = _bad_target( $target, \%wrapper )) {
+			croak $error;
+		}
 		
 		$wrapped_sub{ $target } = 1;
 	
@@ -226,6 +217,14 @@ pre-existing subroutine.
 This module works on functions, B<not> object methods.  It should be relatively
 easy to add this, but I have generally found object interfaces to be cleaner,
 so I felt there was less of a need for this.
+
+Hash keys passed in that were not listed in the original 'names' list will be
+silently discarded.
+
+=head1 BUGS
+
+2002-04-29 Fixed bug with global value sometimes being overwritten in calling
+or target namespace.  Thanks to chromatic for pointing that out.
 
 =head1 AUTHOR
 
