@@ -1,6 +1,10 @@
+Build.PL
 Changes
+lib/Sub/NamedParams.pm
 Makefile.PL
 MANIFEST
-NamedParams.pm
 README
 t/params.t
+t/pod-coverage.t
+t/pod.t
+META.yml

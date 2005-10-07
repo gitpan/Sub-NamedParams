@@ -6,7 +6,7 @@ use Carp qw/croak/;
 
 require Exporter;
 use vars     qw/ $VERSION @ISA @EXPORT_OK /;
-$VERSION   = '1.01';
+$VERSION   = '1.02';
 @ISA       = qw/ Exporter/;
 @EXPORT_OK = qw/ wrap /;
 
@@ -118,7 +118,14 @@ arguments with any subroutine.  It has only one function,
 C<Sub::NamedParams::wrap>, which has two mandatory and three optional
 arguments.
 
-=head2 Parameters
+=head1 EXPORT
+
+Exports C<wrap> on demand.
+
+=head2 wrap
+
+Call this function to "wrap" a function in a new function which takes names
+parameters.
 
 =over 4
 
